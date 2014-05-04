@@ -1,4 +1,4 @@
-noter
-=====
+gonote.txt
+==========
 
-A note taking app
+A command line note taking application
