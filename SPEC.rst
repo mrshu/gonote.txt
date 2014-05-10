@@ -6,7 +6,7 @@ Motivation
 
 Though it might seem surprising, some believe that the abstraction of the
 file, directory and links between them is enough to provide a basic
-database structure for storing notes in a unix-y way. This project shall be
+database structure for storing notes in a unix-y way. This project **shall** be
 the empiric proof.
 
 Structure
@@ -33,8 +33,8 @@ create a symbolic link.
 File format
 -----------
 
-The note file might be of any text based format. Its name should be valid
-in given filesystem and thus should consist of [a-zA-Z0-9_\.-] which should
+The note file might be of any text based format. Its name **should** be valid
+in given filesystem and thus **should** consist of [a-zA-Z0-9_\.-] which **should**
 be sufficient for most note titles.
 
-The first line of the note file must include the title of the note.
+The first line of the note file **must** include the title of the note.
