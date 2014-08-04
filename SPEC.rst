@@ -38,4 +38,16 @@ The note file might be of any text based format. Its name **should** be
 valid in given filesystem and thus **should** consist of [_a-zA-Z0-9\.-]
 which **should** be sufficient for most note titles.
 
+Thus, these files might contan notes:
+
+    some-file-without-extension
+    some_file_without_extension
+    some-file1.txt
+    some....other.file.txt
+
+whereas these might not:
+
+    af425-1.q@22@#%^^&**@! 
+    I-do-not-like-you!.txt
+
 The first line of the note file **must** include the title of the note.
