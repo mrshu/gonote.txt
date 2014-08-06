@@ -26,6 +26,15 @@ func main() {
             },
         }
 
+        var cmdList = &cobra.Command{
+            Use:   "list",
+            Short: "List notes.",
+            Long:  `List all valid note files in the directory.`,
+            Run: func(cmd *cobra.Command, args []string) {
+            },
+        }
+
+
         var GonoterCmd = &cobra.Command{
             Use:   "gonoter",
             Short: "gonoter is a go implementation of note.txt specification.",
@@ -47,5 +56,6 @@ func main() {
         conf.ParseAll()
 
         GonoterCmd.AddCommand(cmdAdd)
+        GonoterCmd.AddCommand(cmdList)
         GonoterCmd.Execute()
 }
