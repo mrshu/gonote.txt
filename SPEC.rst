@@ -6,8 +6,8 @@ Motivation
 
 Though it might seem surprising, some believe that the abstraction of the
 file, directory and links between them is enough to provide a basic
-database structure for storing notes in a unix-y way. This project **shall** be
-the empiric proof.
+database structure for storing notes in a unix-y way. This project
+**shall** be the empiric proof.
 
 Structure
 ---------
@@ -21,13 +21,13 @@ stored in its inode record. It is necessary for this data to be easily
 retrievable by common tools.
 
 Notes are stored in a central directory. Inside this directory there are
-directories which further specify the category into which the note belongs.
-By default, the notes are categorized by their creation date. To make sure
+directories which further specify tags attached to a given note.
+By default, the notes are tagged with their creation date. To make sure
 that they can be easily sorted by running a common directory listing
 command, these directories' names hold a pattern of YYYY-MM-DD where YYYY
 specifies the year, MM the month and DD the day.
 
-In order to add a note into a different category/directory one can just
+In order to add a note into a different tag/directory one can just
 create a symbolic link.
 
 
