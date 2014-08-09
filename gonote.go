@@ -15,9 +15,9 @@ func main() {
         var dir string
 
         var cmdAdd = &cobra.Command{
-            Use:   "add [title] [category]",
+            Use:   "add [title] [tag]",
             Short: "Add a note.",
-            Long:  `Add a note into a category.`,
+            Long:  `Add a note and tag it.`,
             Run: func(cmd *cobra.Command, args []string) {
                 if len(args) < 1 {
                         fmt.Println("I need something to add")
