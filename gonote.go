@@ -4,6 +4,7 @@ import  (
         "fmt"
         "github.com/spf13/cobra"
         "github.com/rakyll/globalconf"
+        "github.com/mrshu/go-notetxt"
         "flag"
 )
 
@@ -31,6 +32,14 @@ func main() {
             Short: "List notes.",
             Long:  `List all valid note files in the directory.`,
             Run: func(cmd *cobra.Command, args []string) {
+                notes, err := notetxt.ParseDir(dir)
+                if err != nil {
+                    panic(err)
+                }
+
+                for i, note := range notes {
+                    fmt.Printf("%d %v\n", i, note)
+                }
             },
         }
 
@@ -46,6 +55,7 @@ func main() {
         GonoterCmd.PersistentFlags().StringVarP(&dir, "directory", "", "",
                                      "Location of the note.txt directory.")
 
+        conf.ParseAll()
         if dir == "" {
                 if *flagNotedir == "" {
                         dir = "~/notes"
@@ -53,7 +63,6 @@ func main() {
                         dir = *flagNotedir
                 }
         }
-        conf.ParseAll()
 
         GonoterCmd.AddCommand(cmdAdd)
         GonoterCmd.AddCommand(cmdList)
