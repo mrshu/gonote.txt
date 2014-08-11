@@ -38,7 +38,7 @@ func main() {
                 }
 
                 for i, note := range notes {
-                    fmt.Printf("%d %v\n", i, note)
+                    fmt.Printf("%d %s - %v\n", i, note.Name, note.Tags)
                 }
             },
         }
