@@ -6,6 +6,7 @@ import  (
         "github.com/rakyll/globalconf"
         "github.com/mrshu/go-notetxt"
         "flag"
+        "os/user"
 )
 
 func main() {
@@ -58,7 +59,12 @@ func main() {
         conf.ParseAll()
         if dir == "" {
                 if *flagNotedir == "" {
-                        dir = "~/notes"
+                        usr, err := user.Current()
+                        if err != nil {
+                                panic(err)
+                        }
+
+                        dir = usr.HomeDir + "/notes"
                 } else {
                         dir = *flagNotedir
                 }
