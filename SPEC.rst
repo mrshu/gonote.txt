@@ -21,11 +21,11 @@ stored in its inode record. It is necessary for this data to be easily
 retrievable by common tools.
 
 Notes are stored in a central directory. Inside this directory there are
-directories which further specify tags attached to a given note.
-By default, the notes are tagged with their creation date. To make sure
-that they can be easily sorted by running a common directory listing
-command, these directories' names hold a pattern of YYYY-MM-DD where YYYY
-specifies the year, MM the month and DD the day.
+directories which further specify tags attached to a given note. By
+default, the notes are tagged with their creation date. To make sure that
+they can be easily sorted by running a common directory listing command,
+the names of this directories are created in a pattern of YYYY-MM-DD where
+YYYY specifies the year, MM the month and DD the day.
 
 In order to add a note into a different tag/directory one can just
 create a symbolic link.
