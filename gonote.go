@@ -7,6 +7,11 @@ import  (
         "github.com/mrshu/go-notetxt"
         "flag"
         "os/user"
+        "time"
+        "os"
+        "io/ioutil"
+        "os/exec"
+        "strings"
 )
 
 func main() {
@@ -23,9 +28,45 @@ func main() {
             Short: "Add a note.",
             Long:  `Add a note and tag it.`,
             Run: func(cmd *cobra.Command, args []string) {
-                if len(args) < 1 {
+                if len(args) < 1 && !today {
                         fmt.Println("I need something to add")
                         return
+                }
+
+                if today {
+                        t := time.Now().Local()
+                        dir := fmt.Sprintf("%s/%s", *flagNotedir, t.Format("2006/01/"))
+                        os.MkdirAll(dir, 755)
+
+                        text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
+                        spacer := "\n" + strings.Repeat("=", len(text))
+                        file := fmt.Sprintf("%s/%s", *flagNotedir, t.Format("2006/01/02.rst"))
+
+                        e := ioutil.WriteFile(file,
+                                                []byte(text + spacer),
+                                                0644)
+                        if e != nil {
+                                panic(e)
+                        }
+
+                        editor := os.Getenv("EDITOR")
+                        if len(editor) == 0 {
+                                editor = "nano" //FIXME: saner default?
+                        }
+
+                        c := exec.Command(editor, file)
+
+                        // nasty hack, see http://stackoverflow.com/a/12089980
+                        c.Stdin = os.Stdin
+                        c.Stdout = os.Stdout
+                        c.Stderr = os.Stderr
+
+                        er := c.Run()
+
+                        if er != nil {
+                                fmt.Println(er.Error())
+                                panic(er)
+                        }
                 }
             },
         }
