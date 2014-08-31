@@ -29,7 +29,7 @@ func main() {
                 }
             },
         }
-        cmdAdd.Flags().BoolVarP(&numtasks, "today", "T", false,
+        cmdAdd.Flags().BoolVarP(&today, "today", "T", false,
                                  "Add today's journal entry.")
 
         var cmdList = &cobra.Command{
