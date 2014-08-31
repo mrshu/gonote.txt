@@ -16,6 +16,8 @@ func main() {
         var flagNotedir = flag.String("dir", "", "Location of the note.txt directory.")
         var dir string
 
+        var today bool
+
         var cmdAdd = &cobra.Command{
             Use:   "add [title] [tag]",
             Short: "Add a note.",
@@ -27,6 +29,8 @@ func main() {
                 }
             },
         }
+        cmdAdd.Flags().BoolVarP(&numtasks, "today", "T", false,
+                                 "Add today's journal entry.")
 
         var cmdList = &cobra.Command{
             Use:   "list",
