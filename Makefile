@@ -5,8 +5,8 @@ DEST=/usr/bin
 gonote: gonote.go
 	$(CC) build ./gonote.go
 
-install: gonote 
+install: gonote
 	$(INSTALL) gonote $(DEST)/gonote
 
 clean:
-	rm -rf gonote 
+	rm -rf gonote

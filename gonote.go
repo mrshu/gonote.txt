@@ -16,7 +16,7 @@ import  (
 
 func main() {
 
-        conf, _ := globalconf.New("gonoter")
+        conf, _ := globalconf.New("gonote")
 
         var flagNotedir = flag.String("dir", "", "Location of the note.txt directory.")
         var dir string
@@ -43,7 +43,7 @@ func main() {
                         file := fmt.Sprintf("%s%s.rst", dir, notetxt.TitleToFilename(text))
 
                         if _, err := os.Stat(file); err == nil {
-                                fmt.Println("gonoter: Notefile for today already exists. " +
+                                fmt.Println("gonote: Notefile for today already exists. " +
                                                 "You can still edit it if you want.")
                                 return
                         }
@@ -97,8 +97,8 @@ func main() {
 
 
         var GonoterCmd = &cobra.Command{
-            Use:   "gonoter",
-            Short: "gonoter is a go implementation of note.txt specification.",
+            Use:   "gonote",
+            Short: "gonote is a go implementation of note.txt specification.",
             Long: `A small, fast and fun implementation of note.txt`,
             Run: func(cmd *cobra.Command, args []string) {
             },
