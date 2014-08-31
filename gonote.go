@@ -40,7 +40,7 @@ func main() {
 
                         text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
                         spacer := "\n" + strings.Repeat("=", len(text))
-                        file := fmt.Sprintf("%s/%s", *flagNotedir, t.Format("2006/01/02.rst"))
+                        file := fmt.Sprintf("%s%s.rst", dir, notetxt.TitleToFilename(text))
 
                         e := ioutil.WriteFile(file,
                                                 []byte(text + spacer),
