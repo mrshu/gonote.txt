@@ -29,7 +29,7 @@ func main() {
             Long:  `Add a note and tag it.`,
             Run: func(cmd *cobra.Command, args []string) {
                 if len(args) < 1 && !today {
-                        fmt.Println("I need something to add")
+                        fmt.Println("I need something to add.")
                         return
                 }
 
@@ -41,6 +41,12 @@ func main() {
                         text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
                         spacer := "\n" + strings.Repeat("=", len(text))
                         file := fmt.Sprintf("%s%s.rst", dir, notetxt.TitleToFilename(text))
+
+                        if _, err := os.Stat(file); err == nil {
+                                fmt.Println("gonoter: Notefile for today already exists. " +
+                                                "You can still edit it if you want.")
+                                return
+                        }
 
                         e := ioutil.WriteFile(file,
                                                 []byte(text + spacer),
