@@ -56,25 +56,9 @@ func main() {
 
                 if today {
                         t := time.Now().Local()
-                        dir := fmt.Sprintf("%s/%s", *flagNotedir, t.Format("2006/01/"))
-                        os.MkdirAll(dir, 755)
 
                         text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
-                        spacer := "\n" + strings.Repeat("=", len(text))
-                        file := fmt.Sprintf("%s%s.rst", dir, notetxt.TitleToFilename(text))
-
-                        if _, err := os.Stat(file); err == nil {
-                                fmt.Println("gonote: Notefile for today already exists. " +
-                                                "You can still edit it if you want.")
-                                return
-                        }
-
-                        e := ioutil.WriteFile(file,
-                                                []byte(text + spacer),
-                                                0644)
-                        if e != nil {
-                                panic(e)
-                        }
+                        notetxt.CreateNote(text, t.Format("2006/01/"), *flagNotedir)
 
                         openFileInEditor(file)
                 }
