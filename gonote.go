@@ -14,6 +14,27 @@ import  (
         "strings"
 )
 
+func openFileInEditor(file string) {
+        editor := os.Getenv("EDITOR")
+        if len(editor) == 0 {
+                editor = "nano" //FIXME: saner default?
+        }
+
+        c := exec.Command(editor, file)
+
+        // nasty hack, see http://stackoverflow.com/a/12089980
+        c.Stdin = os.Stdin
+        c.Stdout = os.Stdout
+        c.Stderr = os.Stderr
+
+        er := c.Run()
+
+        if er != nil {
+                fmt.Println(er.Error())
+                panic(er)
+        }
+}
+
 func main() {
 
         conf, _ := globalconf.New("gonote")
@@ -55,24 +76,7 @@ func main() {
                                 panic(e)
                         }
 
-                        editor := os.Getenv("EDITOR")
-                        if len(editor) == 0 {
-                                editor = "nano" //FIXME: saner default?
-                        }
-
-                        c := exec.Command(editor, file)
-
-                        // nasty hack, see http://stackoverflow.com/a/12089980
-                        c.Stdin = os.Stdin
-                        c.Stdout = os.Stdout
-                        c.Stderr = os.Stderr
-
-                        er := c.Run()
-
-                        if er != nil {
-                                fmt.Println(er.Error())
-                                panic(er)
-                        }
+                        openFileInEditor(file)
                 }
             },
         }
