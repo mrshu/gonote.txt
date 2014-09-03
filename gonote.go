@@ -56,7 +56,7 @@ func main() {
                         t := time.Now().Local()
 
                         text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
-                        file, err := notetxt.CreateNote(text, t.Format("2006/01/"), *flagNotedir)
+                        file, err := notetxt.CreateNote(text, t.Format("2006/01/"), dir)
                         if err != nil {
                                 panic(err);
                         }
