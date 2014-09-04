@@ -10,6 +10,7 @@ import  (
         "time"
         "os"
         "os/exec"
+        "strings"
 )
 
 func openFileInEditor(file string) {
@@ -52,17 +53,21 @@ func main() {
                         return
                 }
 
+                var text string
+                t := time.Now().Local()
+
                 if today {
-                        t := time.Now().Local()
-
-                        text := fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
-                        file, err := notetxt.CreateNote(text, t.Format("2006/01/"), dir)
-                        if err != nil {
-                                panic(err);
-                        }
-
-                        openFileInEditor(file)
+                        text = fmt.Sprintf("Daily journal, date %s", t.Format("02. 01. 2006"))
+                } else {
+                        text = strings.Join(args, " ")
                 }
+
+                file, err := notetxt.CreateNote(text, t.Format("2006/01/"), dir)
+                if err != nil {
+                        panic(err);
+                }
+
+                openFileInEditor(file)
             },
         }
         cmdAdd.Flags().BoolVarP(&today, "today", "T", false,
