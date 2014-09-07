@@ -4,13 +4,14 @@ import  (
         "fmt"
         "github.com/spf13/cobra"
         "github.com/rakyll/globalconf"
-        "github.com/mrshu/go-notetxt"
+        "../go-notetxt"
         "flag"
         "os/user"
         "time"
         "os"
         "os/exec"
         "strings"
+        "strconv"
 )
 
 func openFileInEditor(file string) {
@@ -89,6 +90,35 @@ func main() {
             },
         }
 
+        var cmdTag = &cobra.Command{
+            Use:   "tag <noteid> <tag-name>",
+            Short: "Attaches a tag to a note.",
+            Long:  `Tags a note with a one or more tags.`,
+            Run: func(cmd *cobra.Command, args []string) {
+                if len(args) < 2 {
+                        fmt.Printf("Too few arguments.")
+                }
+
+                notes, err := notetxt.ParseDir(dir)
+                if err != nil {
+                    panic(err)
+                }
+
+                noteid, err := strconv.Atoi(args[0])
+                if err != nil {
+                        fmt.Printf("Do you really consider that a number? %v\n", err)
+                        return
+                }
+
+                file := notes[noteid].Filename
+                tag := args[1]
+                err = notetxt.TagNote(file, tag, dir)
+                if err != nil {
+                        panic(err)
+                }
+
+            },
+        }
 
         var GonoterCmd = &cobra.Command{
             Use:   "gonote",
@@ -117,5 +147,6 @@ func main() {
 
         GonoterCmd.AddCommand(cmdAdd)
         GonoterCmd.AddCommand(cmdList)
+        GonoterCmd.AddCommand(cmdTag)
         GonoterCmd.Execute()
 }
