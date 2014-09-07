@@ -73,13 +73,18 @@ func main() {
         }
 
         var cmdEdit = &cobra.Command{
-            Use:   "edit",
+            Use:   "edit <id>|<selector>",
             Short: "Edit notes.",
             Long:  `Edit a note identified by either an ID or a selector.`,
             Run: func(cmd *cobra.Command, args []string) {
+                if len(args) < 1 {
+                        fmt.Println("Either a note ID or a selector is required.")
+                        return
+                }
+
                 noteid, err := strconv.Atoi(args[0])
                 if err != nil {
-                        fmt.Printf("Notes matching your query:\n")
+                        fmt.Printf("Notes matching your selector:\n")
                         cmdList.Run(cmd, args)
                         return
                 }
