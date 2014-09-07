@@ -82,16 +82,26 @@ func main() {
                         return
                 }
 
-                noteid, err := strconv.Atoi(args[0])
-                if err != nil {
-                        fmt.Printf("Notes matching your selector:\n")
-                        cmdList.Run(cmd, args)
-                        return
-                }
-
                 notes, err := notetxt.ParseDir(dir)
                 if err != nil {
                     panic(err)
+                }
+
+                noteid, err := strconv.Atoi(args[0])
+                if err != nil {
+                        needle := strings.Join(args, " ")
+                        filtered_notes := notes.FilterBy(needle)
+
+                        if len(filtered_notes) == 1 {
+                                notetxt.OpenFileInEditor(filtered_notes[0].Filename)
+                        } else if len (filtered_notes) == 0 {
+                                fmt.Printf("No notes matched your selector.")
+                        } else {
+                                fmt.Printf("Notes matching your selector:\n")
+                                filtered_notes.Print()
+                        }
+
+                        return
                 }
 
                 if noteid > len(notes) || noteid < 0 {
