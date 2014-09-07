@@ -72,6 +72,27 @@ func main() {
             },
         }
 
+        var cmdEdit = &cobra.Command{
+            Use:   "edit",
+            Short: "Edit notes.",
+            Long:  `Edit a note identified by either an ID or a selector.`,
+            Run: func(cmd *cobra.Command, args []string) {
+                noteid, err := strconv.Atoi(args[0])
+                if err != nil {
+                        fmt.Printf("Notes matching your query:\n")
+                        cmdList.Run(cmd, args)
+                }
+
+                notes, err := notetxt.ParseDir(dir)
+                if err != nil {
+                    panic(err)
+                }
+
+                notetxt.OpenFileInEditor(notes[noteid].Filename)
+
+            },
+        }
+
         var cmdTag = &cobra.Command{
             Use:   "tag <noteid> <tag-name>",
             Short: "Attaches a tag to a note.",
@@ -130,5 +151,6 @@ func main() {
         GonoterCmd.AddCommand(cmdAdd)
         GonoterCmd.AddCommand(cmdList)
         GonoterCmd.AddCommand(cmdTag)
+        GonoterCmd.AddCommand(cmdEdit)
         GonoterCmd.Execute()
 }
