@@ -62,8 +62,12 @@ func main() {
                     panic(err)
                 }
 
+                needle := strings.Join(args, " ")
+
                 for i, note := range notes {
-                    fmt.Printf("%d %s - %v\n", i, note.Name, note.Tags)
+                    if note.Matches(needle) {
+                        fmt.Printf("%d %s - %v\n", i, note.Name, note.Tags)
+                    }
                 }
             },
         }
