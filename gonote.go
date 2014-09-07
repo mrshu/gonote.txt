@@ -8,32 +8,10 @@ import  (
         "flag"
         "os/user"
         "time"
-        "os"
-        "os/exec"
         "strings"
         "strconv"
 )
 
-func openFileInEditor(file string) {
-        editor := os.Getenv("EDITOR")
-        if len(editor) == 0 {
-                editor = "nano" //FIXME: saner default?
-        }
-
-        c := exec.Command(editor, file)
-
-        // nasty hack, see http://stackoverflow.com/a/12089980
-        c.Stdin = os.Stdin
-        c.Stdout = os.Stdout
-        c.Stderr = os.Stderr
-
-        er := c.Run()
-
-        if er != nil {
-                fmt.Println(er.Error())
-                panic(er)
-        }
-}
 
 func main() {
 
@@ -68,7 +46,7 @@ func main() {
                         panic(err);
                 }
 
-                openFileInEditor(file)
+                notetxt.OpenFileInEditor(file)
             },
         }
         cmdAdd.Flags().BoolVarP(&today, "today", "T", false,
