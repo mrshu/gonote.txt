@@ -81,6 +81,7 @@ func main() {
                 if err != nil {
                         fmt.Printf("Notes matching your query:\n")
                         cmdList.Run(cmd, args)
+                        return
                 }
 
                 notes, err := notetxt.ParseDir(dir)
