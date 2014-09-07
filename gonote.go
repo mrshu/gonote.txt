@@ -53,7 +53,7 @@ func main() {
                                  "Add today's journal entry.")
 
         var cmdList = &cobra.Command{
-            Use:   "list",
+            Use:   "ls",
             Short: "List notes.",
             Long:  `List all valid note files in the directory.`,
             Run: func(cmd *cobra.Command, args []string) {
@@ -144,6 +144,7 @@ func main() {
             Short: "gonote is a go implementation of note.txt specification.",
             Long: `A small, fast and fun implementation of note.txt`,
             Run: func(cmd *cobra.Command, args []string) {
+                cmdList.Run(cmd, args)
             },
         }
 
