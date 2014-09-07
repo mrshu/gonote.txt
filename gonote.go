@@ -88,6 +88,11 @@ func main() {
                     panic(err)
                 }
 
+                if noteid > len(notes) || noteid < 0 {
+                        fmt.Printf("Invalid note ID (%v)\n", noteid)
+                        return
+                }
+
                 notetxt.OpenFileInEditor(notes[noteid].Filename)
 
             },
@@ -110,6 +115,11 @@ func main() {
                 noteid, err := strconv.Atoi(args[0])
                 if err != nil {
                         fmt.Printf("Do you really consider that a number? %v\n", err)
+                        return
+                }
+
+                if noteid > len(notes) || noteid < 0 {
+                        fmt.Printf("Invalid note ID (%v)\n", noteid)
                         return
                 }
 
