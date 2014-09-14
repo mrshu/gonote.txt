@@ -23,7 +23,7 @@ func main() {
         var today bool
 
         var cmdAdd = &cobra.Command{
-            Use:   "add [title] [tag]",
+            Use:   "add <title> [tag]",
             Short: "Add a note.",
             Long:  `Add a note and tag it.`,
             Run: func(cmd *cobra.Command, args []string) {
@@ -53,7 +53,7 @@ func main() {
                                  "Add today's journal entry.")
 
         var cmdList = &cobra.Command{
-            Use:   "ls",
+            Use:   "ls <query>",
             Short: "List notes.",
             Long:  `List all valid note files in the directory.`,
             Run: func(cmd *cobra.Command, args []string) {
